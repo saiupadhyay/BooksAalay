@@ -1,0 +1,943 @@
+/* ========================
+🌐 GLOBAL STYLES
+======================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+    transition: background 0.4 ease, color 0.4s ease;
+}
+
+/* DARK MODE OVERRIDES */
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .main-content {
+    background: #1e1e1e;
+}
+
+body.dark-mode .feature-card,
+body.dark-mode .book-card,
+body.dark-mode .stat-card,
+body.dark-mode .chat-container,
+body.dark-mode .search-bar input,
+body.dark-mode .mood-btn {
+    background: #2a2a2a !important;
+    color: #eee;
+    border-color: #444;
+}
+
+body.dark-mode .book-title,
+body.dark-mode .book-author,
+body.dark-mode .book-price {
+    color: #fff;
+}
+
+body.dark-mode .send-btn,
+body.dark-mode .clear-btn,
+body.dark-mode .mood-btn.active {
+    background: linear-gradient(135deg, #4ecdc4, #2f6d76);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========================
+🧭 NAVBAR
+======================== */
+/* 🌐 HEADER & NAV STYLES */
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* 📌 NAV CONTAINER */
+/* 🧼 Clean, blurred, glass-style navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    /* position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.05); /* lighter transparent */
+    /* backdrop-filter: blur(20px); */
+    /* -webkit-backdrop-filter: blur(20px); */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.15); */
+    /* box-shadow: none; */ 
+}
+
+body.dark-mode nav {
+    background: rgba(20, 20, 20, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/* 🌟 LOGO */
+/* .logo {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #38f9d7, #4facfe);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #38f9d7, #4facfe);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.book-svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    animation: flipPage 2s infinite alternate;
+}
+
+.book-svg .cover {
+    fill: #4ecdc4;
+}
+
+.book-svg .page {
+    fill: #fff;
+    transform-origin: left;
+    animation: turnPage 2s infinite alternate ease-in-out;
+}
+
+@keyframes turnPage {
+    0% { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(0.2); opacity: 0.5; }
+}
+
+@keyframes flipPage {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-3deg); }
+}
+
+/* Dark mode override for page color */
+body.dark-mode .book-svg .page {
+    fill: #e0e0e0;
+}
+
+
+/* 🔗 NAV LINKS */
+.nav-links {
+    display: flex;
+    gap: 5rem;
+    list-style: none;
+    transition: all 0.3s ease;
+}
+
+/* ✅ Link Colors: Adaptive */
+body:not(.dark-mode) .nav-links li a {
+    color: #333;
+}
+
+body.dark-mode .nav-links li a {
+    color: white;
+}
+
+/* 🔁 Reusable link styles */
+.nav-links li a {
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* ✨ Hover underline animation */
+.nav-links li a:hover {
+    color: #4ecdc4;
+    transform: translateY(-2px);
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+/* 📍 Scroll-based link color in light mode */
+body:not(.dark-mode) nav.scrolled .nav-links li a {
+    color: #333;
+}
+
+body:not(.dark-mode) nav.scrolled .nav-links li a:hover {
+    color: #4ecdc4;
+}
+
+/* 🍔 HAMBURGER ICON */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+body.dark-mode .menu-toggle {
+    color: white;
+}
+
+/* 📱 RESPONSIVE NAV STYLES */
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        top: 70px;
+        right: 2rem;
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        width: 220px;
+        z-index: 1000;
+    }
+
+    body.dark-mode .nav-links {
+        background: #2a2a2a;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-bottom: 0.8rem;
+    }
+
+    .nav-links li a {
+        font-size: 1rem;
+    }
+}
+
+/* ========================
+🧭 Dark Mode
+======================== */
+
+/* Navbar Dark Mode Toggle Button */
+/* 🌙 DARK MODE OVERRIDES */
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+/* 🌓 Navbar toggle button in both modes */
+.dark-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-left: 1rem;
+}
+
+.dark-toggle:hover {
+    transform: rotate(20deg) scale(1.1);
+    color: #4ecdc4;
+}
+
+/* 🌙 Dark mode search input */
+body.dark-mode #bookSearch {
+    background: #2a2a2a;
+    color: #fff;
+    border-color: #555;
+}
+
+body.dark-mode #bookSearch::placeholder {
+    color: #aaa;
+}
+
+/* 🌙 Dark mode headings and paragraphs */
+body.dark-mode h2, 
+body.dark-mode h3,
+body.dark-mode p {
+    color: #e0e0e0;
+}
+
+/* 🌙 Dark mode Discover section */
+body.dark-mode #discover {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* 🌞 Light mode ONLY — change nav links when scrolled */
+body:not(.dark-mode) nav.scrolled .nav-links a {
+    color: #333;
+}
+
+body:not(.dark-mode) nav.scrolled .nav-links a:hover {
+    color: #4ecdc4;
+}
+
+/* 🌙 Dark mode: nav links always stay white */
+body.dark-mode nav .nav-links a {
+    color: white;
+}
+
+body.dark-mode nav .nav-links a:hover {
+    color: #4ecdc4;
+}
+
+/* ========================
+🎯 HERO SECTION
+======================== */
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.3)); }
+    to { filter: drop-shadow(0 0 30px rgba(78, 205, 196, 0.5)); }
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+}
+
+/* ========================
+📦 MAIN CONTENT
+======================== */
+.main-content {
+    background: white;
+    border-radius: 30px 30px 0 0;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.main-content, 
+input, 
+button, 
+.book-card,
+.feature-card,
+.stat-card {
+    transition: background 0.4 ease, color 0.4 ease, border 0.3 ease;
+}
+
+/* 🌟 Features Grid Section */
+.features-section {
+    padding: 4rem 2rem;
+    background: white;
+    text-align: center;
+}
+
+body.dark-mode .features-section {
+    background: #1e1e1e;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: left;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+body.dark-mode .feature-card {
+    background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
+    color: #eee;
+    border: 1px solid #444;
+}
+
+
+/* ========================
+🔍 BOOK SEARCH SECTION
+======================== */
+#discover {
+    background: #f1f0f3;
+    border-radius: 30px;
+    padding: 2rem;
+    margin: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+#bookSearch {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid #4ecdc4;
+    border-radius: 25px;
+    width: 80%;
+    max-width: 500px;
+    margin-bottom: 1rem;
+    color: #000;
+    background: #fff;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+#bookSearch:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.4);
+}
+
+#bookSearch::placeholder {
+    color: #999;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.send-btn, .clear-btn {
+    min-width: 120px;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+}
+
+.send-btn:hover, .clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#searchResults {
+    margin-top: 2rem;
+}
+
+/* ========================
+🧘 MOOD-BASED DISCOVERY
+======================== */
+.section-heading {
+    color: #333;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+body.dark-mode .section-heading {
+    color: #e0e0e0;
+}
+
+.section-subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+body.dark-mode .section-subtitle {
+    color: #aaa;
+}
+
+.mood-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.mood-btn {
+    padding: 1rem;
+    border: 2px solid #e0e6ed;
+    border-radius: 15px;
+    background: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.mood-btn:hover {
+    border-color: #4ecdc4;
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.mood-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: #667eea;
+}
+
+#moodBooks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Mood book animation classes */
+.book-card.animate-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+#moodBooks.fade-out {
+    animation: fadeOut 0.4s ease forwards;
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* ========================
+📚 BOOK DISPLAY
+======================== */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.book-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.book-cover {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.book-info {
+    padding: 1rem;
+}
+
+.book-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.book-author {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.book-price {
+    color: #4ecdc4;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* ========================
+📊 ANALYTICS DASHBOARD
+======================== */
+.analytics {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+    margin: 2rem 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.stat-label {
+    opacity: 0.8;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* ========================
+💬 CHATBOT INTERFACE
+======================== */
+/* 🌟 Chatbot Container */
+.chat-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 320px;
+    max-height: 450px;
+    background: #5c085b;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.chat-container.hidden {
+    display: none;
+}
+
+/* 🧠 Chat Header */
+.chat-header {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    padding: 1rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.ai-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+}
+
+/* 💬 Chat Messages */
+#chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: #5c085b;
+    max-height: 260px;
+    scroll-behavior: smooth;
+}
+
+/* 💬 Message Bubbles */
+.user-msg, .ai-msg {
+    margin-bottom: 0.8rem;
+    max-width: 80%;
+    padding: 0.7rem 1rem;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.user-msg {
+    background: #e0f7fa;
+    align-self: flex-end;
+    margin-left: auto;
+    color: #333;
+    border-bottom-right-radius: 0;
+}
+
+.ai-msg {
+    background: #f1f0f3;
+    align-self: flex-start;
+    margin-right: auto;
+    color: #333;
+    border-bottom-left-radius: 0;
+}
+
+/* 📥 Input Area */
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    background: #fff;
+    border-top: 1px solid #eee;
+    position: relative;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s ease;
+    color: #333;
+}
+
+.chat-input::placeholder {
+    color: #aaa;
+}
+
+/* 📤 Send / 🎤 Mic Icons */
+.send-icon, .mic-icon {
+    position: absolute;
+    right: 0.8rem;
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.send-icon {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    right: 1rem;
+}
+
+.mic-icon {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    right: 3.2rem;
+}
+
+.send-icon:hover, .mic-icon:hover {
+    transform: scale(1.2);
+}
+
+
+/* Floating button */
+.floating-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    font-size: 1.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: 0.3s ease;
+}
+
+.floating-chat:hover {
+    transform: scale(1.1);
+}
+
+/* ========================
+🧊 BACKGROUND PARTICLES
+======================== */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* ========================
+📱 RESPONSIVE DESIGN
+======================== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .features-grid,
+    .mood-selector {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================
+📱 Feature Cards Functining
+======================== */
+/* .goal-section {
+    padding: 4rem 2rem;
+    background: #fefefe;
+    text-align: center;
+}
+
+body.dark-mode .goal-section {
+    background: #1e1e1e;
+}
+
+.goal-input-wrapper {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.goal-input-wrapper input {
+    width: 90%;
+    max-width: 500px;
+    padding: 0.9rem 1.2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.goal-input-wrapper button {
+    padding: 0.8rem 1.8rem;
+    border-radius: 25px;
+    border: none;
+    font-size: 1rem;
+    background: linear-gradient(45deg, #4ecdc4, #667eea);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.goal-input-wrapper button:hover {
+    transform: scale(1.05);
+}
+
+body.dark-mode .goal-input-wrapper input {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode .goal-input-wrapper input::placeholder {
+    color: #aaa;
+} */

@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulBooks - AI Bookstore of the Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.3)); }
+            to { filter: drop-shadow(0 0 30px rgba(78, 205, 196, 0.5)); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 30px 30px 0 0;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* AI Chat Interface */
+        .ai-chat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .send-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mood Selector */
+        .mood-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .mood-btn {
+            padding: 1rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .mood-btn:hover {
+            border-color: #4ecdc4;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .mood-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Book Recommendations */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-cover {
+            height: 250px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .book-info {
+            padding: 1rem;
+        }
+
+        .book-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .book-author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-price {
+            font-weight: 700;
+            color: #4ecdc4;
+            font-size: 1.1rem;
+        }
+
+        /* Analytics Dashboard */
+        .analytics {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Voice Command */
+        .voice-section {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .voice-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 1rem;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .voice-btn.listening {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mood-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">📚 SoulBooks</div>
+                <ul class="nav-links">
+                    <li><a href="#discover">Discover</a></li>
+                    <li><a href="#mood">Mood Match</a></li>
+                    <li><a href="#ai-chat">AI Librarian</a></li>
+                    <li><a href="#analytics">My Reading</a></li>
+                    <li><a href="#profile">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>SoulBooks</h1>
+            <p>The AI-Powered Bookstore That Knows Your Soul</p>
+            <p class="tagline">"Not just a bookstore. An AI companion that knows your soul and gives you the books you never knew you needed."</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- AI Chat Interface -->
+            <section class="ai-chat" id="ai-chat">
+                <div class="chat-header">
+                    <div class="ai-avatar">🤖</div>
+                    <div>
+                        <h3>AI Librarian - Aria</h3>
+                        <p>Your personal book curator and literary companion</p>
+                    </div>
+                </div>
+                <div id="chat-messages">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 15px; margin-bottom: 1rem;">
+                        <strong>Aria:</strong> Hello! I'm your AI librarian. Tell me how you're feeling, what you're going through, or what kind of story you need right now. I'll find the perfect book that speaks to your soul! ✨
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" placeholder="Tell me what you're feeling or what kind of book you need..." id="chatInput">
+                    <button class="send-btn" onclick="sendMessage()">Send</button>
+                </div>
+            </section>
+
+            <!-- Mood-Based Discovery -->
+            <section id="mood">
+                <h2 style="text-align: center; margin: 2rem 0; font-size: 2.5rem; color: #333;">🧘‍♂️ Mood-Based Discovery</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 2rem;">How are you feeling today? Let us find books that match your emotional state.</p>
+                
+                <div class="mood-selector">
+                    <div class="mood-btn" data-mood="lost">😔 I feel lost</div>
+                    <div class="mood-btn" data-mood="happy">😊 I want to laugh</div>
+                    <div class="mood-btn" data-mood="heartbreak">💔 Going through heartbreak</div>
+                    <div class="mood-btn" data-mood="motivated">🔥 Need motivation</div>
+                    <div class="mood-btn" data-mood="calm">🧘 Seeking peace</div>
+                    <div class="mood-btn" data-mood="adventure">🗺️ Craving adventure</div>
+                    <div class="mood-btn" data-mood="romantic">💕 Feeling romantic</div>
+                    <div class="mood-btn" data-mood="thriller">😰 Want thrills</div>
+                </div>
+
+                <div class="book-grid" id="moodBooks">
+                    <!-- Books will be populated based on mood selection -->
+                </div>
+            </section>
+
+            <!-- Voice Command Section -->
+            <section class="voice-section">
+                <h3>🎙️ Voice Search</h3>
+                <p>Speak naturally and I'll understand what you're looking for</p>
+                <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceSearch()">🎤</button>
+                <p id="voiceStatus">Click to start voice search</p>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Goal-Based Discovery</h3>
+                    <p>Set your personal goals and get curated book recommendations that align with your aspirations - whether it's productivity, spirituality, or personal growth.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>Reading Personality Quiz</h3>
+                    <p>Discover your unique reading persona through our AI-powered quiz. Are you "The Seeker", "The Rebel", or "The Dreamer"? Find out and get personalized recommendations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3>Visual Book Discovery</h3>
+                    <p>Upload a book cover or artwork you love, and our AI will find books with similar aesthetics, themes, and vibes using advanced image recognition.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📖</span>
+                    <h3>AI Book Summarizer</h3>
+                    <p>Get instant summaries, key takeaways, and personalized reviews for any book using our advanced NLP technology.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">💎</span>
+                    <h3>Emotional Intelligence</h3>
+                    <p>Our AI understands human emotions and life situations, recommending books that provide exactly what you need for your current state of mind.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3>Aesthetic Matching</h3>
+                    <p>Match books not just by content, but by visual style, cover art, and overall aesthetic that resonates with your personal taste.</p>
+                </div>
+            </section>
+
+            <!-- Analytics Dashboard -->
+            <section class="analytics" id="analytics">
+                <h2>📊 Your Reading Analytics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="booksRead">47</span>
+                        <span class="stat-label">Books Read</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="favoriteGenre">Mystery</span>
+                        <span class="stat-label">Favorite Genre</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="readingStreak">23</span>
+                        <span class="stat-label">Day Streak</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="moodTone">Optimistic</span>
+                        <span class="stat-label">Reading Mood</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Sample book database
+        const bookDatabase = {
+            lost: [
+                { title: "The Alchemist", author: "Paulo Coelho", price: "₹299", summary: "A journey of self-discovery" },
+                { title: "Man's Search for Meaning", author: "Viktor Frankl", price: "₹399", summary: "Finding purpose in suffering" },
+                { title: "The Power of Now", author: "Eckhart Tolle", price: "₹450", summary: "Living in the present moment" }
+            ],
+            happy: [
+                { title: "The Hitchhiker's Guide", author: "Douglas Adams", price: "₹350", summary: "Hilarious space adventure" },
+                { title: "Good Omens", author: "Terry Pratchett", price: "₹420", summary: "Funny apocalyptic comedy" },
+                { title: "The Importance of Being Earnest", author: "Oscar Wilde", price: "₹250", summary: "Witty Victorian comedy" }
+            ],
+            heartbreak: [
+                { title: "It's Called a Breakup", author: "Greg Behrendt", price: "₹320", summary: "Healing after heartbreak" },
+                { title: "Wild", author: "Cheryl Strayed", price: "₹380", summary: "Journey of healing and self-discovery" },
+                { title: "The Light We Lost", author: "Jill Santopolo", price: "₹300", summary: "Love, loss, and moving forward" }
+            ],
+            motivated: [
+                { title: "Atomic Habits", author: "James Clear", price: "₹500", summary: "Building good habits" },
+                { title: "The 7 Habits", author: "Stephen Covey", price: "₹450", summary: "Effective personal development" },
+                { title: "Mindset", author: "Carol Dweck", price: "₹400", summary: "Growth vs fixed mindset" }
+            ],
+            calm: [
+                { title: "The Tao of Pooh", author: "Benjamin Hoff", price: "₹280", summary: "Taoist philosophy made simple" },
+                { title: "Zen Mind, Beginner's Mind", author: "Shunryu Suzuki", price: "₹350", summary: "Zen meditation guide" },
+                { title: "The Book of Joy", author: "Dalai Lama", price: "₹420", summary: "Finding lasting happiness" }
+            ],
+            adventure: [
+                { title: "Into the Wild", author: "Jon Krakauer", price: "₹380", summary: "True adventure story" },
+                { title: "The Adventure Zone", author: "Clint McElroy", price: "₹450", summary: "Fantasy adventure comedy" },
+                { title: "Wild", author: "Cheryl Strayed", price: "₹380", summary: "Solo hiking adventure" }
+            ],
+            romantic: [
+                { title: "Pride and Prejudice", author: "Jane Austen", price: "₹320", summary: "Classic romance" },
+                { title: "The Seven Husbands", author: "Taylor Jenkins Reid", price: "₹400", summary: "Hollywood romance drama" },
+                { title: "Beach Read", author: "Emily Henry", price: "₹350", summary: "Contemporary romance" }
+            ],
+            thriller: [
+                { title: "Gone Girl", author: "Gillian Flynn", price: "₹420", summary: "Psychological thriller" },
+                { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson", price: "₹450", summary: "Crime thriller mystery" },
+                { title: "In the Woods", author: "Tana French", price: "₹380", summary: "Atmospheric mystery thriller" }
+            ]
+        };
+
+        // Mood selection functionality
+        document.querySelectorAll('.mood-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get mood and display books
+                const mood = this.dataset.mood;
+                displayBooks(mood);
+            });
+        });
+
+        function displayBooks(mood) {
+            const booksContainer = document.getElementById('moodBooks');
+            const books = bookDatabase[mood] || [];
+            
+            booksContainer.innerHTML = '';
+            
+            books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.innerHTML = `
+                    <div class="book-cover">${book.title}</div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">by ${book.author}</div>
+                        <div class="book-price">${book.price}</div>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">${book.summary}</p>
+                    </div>
+                `;
+                booksContainer.appendChild(bookCard);
+            });
+        }
+
+        // Chat functionality
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatMessages = document.getElementById('chat-messages');
+                
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.style.cssText = 'background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 15px; margin-bottom: 1rem; text-align: right;';
+                userMsg.innerHTML = `<strong>You:</strong> ${message}`;
+                chatMessages.appendChild(userMsg);
+                
+                // Add AI response (simulated)
+                setTimeout(() => {
+                    const aiMsg = document.createElement('div');
+                    aiMsg.style.cssText = 'background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 15px; margin-bottom: 1rem;';
+                    aiMsg.innerHTML = `<strong>Aria:</strong> ${generateAIResponse(message)}`;
+                    chatMessages.appendChild(aiMsg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+                
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function generateAIResponse(message) {
+            const responses = [
+                "Based on what you're feeling, I recommend checking out our mood-based selection. Let me find something that resonates with your current state! 📚",
+                "I understand exactly what you need! Let me curate some personalized recommendations that will speak to your soul. ✨",
+                "That's a beautiful way to express yourself! I have some amazing books that align perfectly with those emotions. 💫",
+                "I can sense the depth in your words. Let me find books that will not only entertain but also provide the emotional support you're seeking. 🌟",
+                "Your emotional intelligence is wonderful! I have some carefully selected titles that match your current journey. 🎯"
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        // Voice search functionality
+        let isListening = false;
+
+        function toggleVoiceSearch() {
+            const btn = document.getElementById('voiceBtn');
+            const status = document.getElementById('voiceStatus');
+            
+            if (!isListening) {
+                // Start listening (simulated)
+                isListening = true;
+                btn.classList.add('listening');
+                status.textContent = 'Listening... Speak now!';
+                
+                // Simulate voice recognition
+                setTimeout(() => {
+                    isListening = false;
+                    btn.classList.remove('listening');
+                    status.textContent = 'Processing your request...';
+                    
+                    setTimeout(() => {
+                        status.textContent = 'Found some great recommendations for you!';
+                        // Trigger mood selection randomly for demo
+                        const moods = ['happy', 'adventure', 'romantic', 'motivated'];
+                        const randomMood = moods[Math.floor(Math.random() * moods.length)];
+                        displayBooks(randomMood);
+                        
+                        setTimeout(() => {
+                            status.textContent = 'Click to start voice search';
+                        }, 3000);
+                    }, 2000);
+                }, 3000);
+            }
+        }
+
+        // Enter key support for chat
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Animate analytics numbers
+            const animateNumber = (element, target, duration = 2000) => {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current);
+                }, 16);
+            };
+
+            // Animate stats when page loads
+            setTimeout(() => {
+                const booksReadEl = document.getElementById('booksRead');
+                const readingStreakEl = document.getElementById('readingStreak');
+                
+                if (booksReadEl) animateNumber(booksReadEl, 47);
+                if (readingStreakEl) animateNumber(readingStreakEl, 23);
+            }, 1000);
+
+            // Auto-display some books initially
+            displayBooks('motivated');
+        });
+
+        // Advanced AI features simulation
+        class BookRecommendationEngine {
+            constructor() {
+                this.userProfile = {
+                    readingPersonality: 'The Seeker',
+                    emotionalState: 'curious',
+                    preferredGenres: ['mystery', 'self-help', 'sci-fi'],
+                    readingGoals: ['personal growth', 'entertainment'],
+                    averageRating: 4.2,
+                    totalBooks: 47
+                };
+            }
+
+            analyzeUserQuery(query) {
+                // Simulated NLP analysis
+                const emotions = {
+                    sad: ['sad', 'depressed', 'down', 'lost', 'lonely'],
+                    happy: ['happy', 'joy', 'excited', 'laugh', 'fun'],
+                    anxious: ['anxious', 'worried', 'stress', 'nervous'],
+                    romantic: ['love', 'romance', 'relationship', 'heart'],
+                    motivated: ['motivation', 'success', 'goals', 'achieve']
+                };
+
+                for (let emotion in emotions) {
+                    if (emotions[emotion].some(word => query.toLowerCase().includes(word))) {
+                        return emotion;
+                    }
+                }
+                return 'general';
+            }
+
+            generatePersonalizedRecommendation(emotion, context = '') {
+                const recommendations = {
+                    sad: {
+                        books: ['The Midnight Library', 'A Man Called Ove', 'The Book Thief'],
+                        message: "I sense you're going through a tough time. These books offer hope and perspective on life's challenges."
+                    },
+                    happy: {
+                        books: ['The Hundred-Year-Old Man', 'Bridget Jones Diary', 'The Rosie Project'],
+                        message: "Your positive energy is wonderful! Here are some uplifting reads to keep that joy flowing."
+                    },
+                    romantic: {
+                        books: ['The Time Traveler\'s Wife', 'Me Before You', 'The Notebook'],
+                        message: "Ah, love is in the air! These romantic tales will make your heart flutter."
+                    },
+                    motivated: {
+                        books: ['The 4-Hour Work Week', 'Think and Grow Rich', 'The Lean Startup'],
+                        message: "I love your drive! These books will fuel your ambition and help you achieve your goals."
+                    }
+                };
+
+                return recommendations[emotion] || {
+                    books: ['The Alchemist', 'Sapiens', 'The Subtle Art of Not Giving a F*ck'],
+                    message: "Based on your reading history, I think you'll love these thought-provoking selections."
+                };
+            }
+        }
+
+        const recommendationEngine = new BookRecommendationEngine();
+
+        // Enhanced chat with AI personality
+        function generateAdvancedAIResponse(message) {
+            const analyzedEmotion = recommendationEngine.analyzeUserQuery(message);
+            const recommendation = recommendationEngine.generatePersonalizedRecommendation(analyzedEmotion);
+            
+            return `${recommendation.message} Based on your query "${message}", I'm recommending: ${recommendation.books.join(', ')}. Would you like me to show you more details about any of these? 📖✨`;
+        }
+
+        // Goal-based discovery system
+        const goalBasedBooks = {
+            productivity: [
+                { title: 'Deep Work', author: 'Cal Newport', price: '₹450', goal_match: 95 },
+                { title: 'Getting Things Done', author: 'David Allen', price: '₹380', goal_match: 90 },
+                { title: 'The Power of Habit', author: 'Charles Duhigg', price: '₹420', goal_match: 88 }
+            ],
+            finance: [
+                { title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', price: '₹350', goal_match: 92 },
+                { title: 'The Intelligent Investor', author: 'Benjamin Graham', price: '₹550', goal_match: 95 },
+                { title: 'Think and Grow Rich', author: 'Napoleon Hill', price: '₹300', goal_match: 85 }
+            ],
+            spirituality: [
+                { title: 'The Power of Now', author: 'Eckhart Tolle', price: '₹450', goal_match: 96 },
+                { title: 'Siddhartha', author: 'Hermann Hesse', price: '₹280', goal_match: 90 },
+                { title: 'The Bhagavad Gita', author: 'Paramahansa Yogananda', price: '₹320', goal_match: 94 }
+            ]
+        };
+
+        // Reading personality types
+        const personalityTypes = {
+            seeker: {
+                name: 'The Seeker',
+                description: 'Always searching for deeper meaning and wisdom',
+                books: ['philosophical', 'spiritual', 'self-help'],
+                traits: ['curious', 'introspective', 'growth-oriented']
+            },
+            rebel: {
+                name: 'The Rebel',
+                description: 'Challenges conventions and loves provocative content',
+                books: ['dystopian', 'counter-culture', 'revolutionary'],
+                traits: ['independent', 'questioning', 'bold']
+            },
+            dreamer: {
+                name: 'The Dreamer',
+                description: 'Loves escaping into fantastical worlds',
+                books: ['fantasy', 'magical-realism', 'adventure'],
+                traits: ['imaginative', 'creative', 'escapist']
+            },
+            analyst: {
+                name: 'The Analyst',
+                description: 'Enjoys complex narratives and detailed analysis',
+                books: ['mystery', 'thriller', 'non-fiction'],
+                traits: ['logical', 'detail-oriented', 'methodical']
+            }
+        };
+
+        // Visual book discovery simulation
+        function simulateVisualDiscovery() {
+            const visualMatches = [
+                'Books with dark, mysterious covers like yours',
+                'Minimalist design aesthetics in literature',
+                'Vintage cover art with similar color palettes',
+                'Modern typography and clean design themes'
+            ];
+            
+            return visualMatches[Math.floor(Math.random() * visualMatches.length)];
+        }
+
+        // Enhanced mood detection with micro-expressions
+        function detectAdvancedMood(textInput) {
+            const advancedMoodMap = {
+                'existential': ['meaning', 'purpose', 'why', 'existence', 'life'],
+                'nostalgic': ['remember', 'past', 'childhood', 'miss', 'used to'],
+                'ambitious': ['achieve', 'goal', 'success', 'future', 'dream'],
+                'contemplative': ['think', 'wonder', 'ponder', 'consider', 'reflect'],
+                'adventurous': ['explore', 'travel', 'discover', 'new', 'journey']
+            };
+
+            for (let mood in advancedMoodMap) {
+                if (advancedMoodMap[mood].some(word => textInput.toLowerCase().includes(word))) {
+                    return mood;
+                }
+            }
+            return 'neutral';
+        }
+
+        // Dynamic book rating system
+        function generateDynamicRating(bookTitle, userPreferences) {
+            // Simulate AI-powered rating based on user preferences
+            const baseRating = 3.5 + Math.random() * 1.5;
+            const personalizedBoost = Math.random() * 0.5;
+            return (baseRating + personalizedBoost).toFixed(1);
+        }
+
+        // Book summary generator (simulated AI)
+        function generateBookSummary(title, author) {
+            const summaryTemplates = [
+                `"${title}" by ${author} is a transformative journey that explores the depths of human experience through compelling storytelling and profound insights.`,
+                `In "${title}", ${author} masterfully weaves a narrative that challenges conventional thinking while offering practical wisdom for modern life.`,
+                `"${title}" stands as ${author}'s testament to the power of resilience, featuring characters that will stay with you long after the final page.`,
+                `${author}'s "${title}" is a beautifully crafted exploration of themes that resonate deeply with the human condition and contemporary society.`
+            ];
+            
+            return summaryTemplates[Math.floor(Math.random() * summaryTemplates.length)];
+        }
+
+        // Advanced search with natural language processing
+        function processNaturalLanguageQuery(query) {
+            const queryAnalysis = {
+                intent: detectSearchIntent(query),
+                entities: extractEntities(query),
+                sentiment: analyzeSentiment(query),
+                complexity: assessQueryComplexity(query)
+            };
+            
+            return queryAnalysis;
+        }
+
+        function detectSearchIntent(query) {
+            if (query.includes('recommend') || query.includes('suggest')) return 'recommendation';
+            if (query.includes('summary') || query.includes('about')) return 'information';
+            if (query.includes('buy') || query.includes('price')) return 'purchase';
+            return 'general';
+        }
+
+        function extractEntities(query) {
+            // Simulate entity extraction (genres, authors, emotions, etc.)
+            const entities = {
+                genres: ['mystery', 'romance', 'sci-fi', 'fantasy', 'thriller'],
+                emotions: ['happy', 'sad', 'excited', 'confused', 'motivated'],
+                authors: ['stephen king', 'j.k. rowling', 'agatha christie', 'paulo coelho']
+            };
+            
+            const found = {};
+            for (let category in entities) {
+                found[category] = entities[category].filter(item => 
+                    query.toLowerCase().includes(item.toLowerCase())
+                );
+            }
+            return found;
+        }
+
+        function analyzeSentiment(query) {
+            const positiveWords = ['love', 'amazing', 'great', 'wonderful', 'excited'];
+            const negativeWords = ['hate', 'terrible', 'boring', 'sad', 'disappointed'];
+            
+            const positive = positiveWords.some(word => query.toLowerCase().includes(word));
+            const negative = negativeWords.some(word => query.toLowerCase().includes(word));
+            
+            if (positive && !negative) return 'positive';
+            if (negative && !positive) return 'negative';
+            return 'neutral';
+        }
+
+        function assessQueryComplexity(query) {
+            const wordCount = query.split(' ').length;
+            if (wordCount > 15) return 'complex';
+            if (wordCount > 8) return 'moderate';
+            return 'simple';
+        }
+
+        // Initialize advanced features
+        console.log('🚀 SoulBooks AI Engine Initialized');
+        console.log('📊 User Profile:', recommendationEngine.userProfile);
+        console.log('🤖 Natural Language Processing: Ready');
+        console.log('🎯 Personalization Engine: Active');
+        console.log('✨ Emotional Intelligence: Online');

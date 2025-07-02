@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booksआलय- AI Bookstore of the Future</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<!-- Floating Chat Button -->
+<button id="chatToggleBtn" onclick="toggleChat()" class="floating-chat">
+  💬
+</button>
+
+<body>
+    <div class = "particles" id="particles"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <!-- <div class="logo">📖 Booksआलय</div> -->
+                 <div class="logo">
+                    <span class="book-icon">
+                        <svg viewBox="0 0 64 64" class="book-svg" xmlns="http://www.w3.org/2000/svg">
+                        <path class="cover" d="M4 8h26v48H4z"/>
+                        <path class="page" d="M30 8h30v48H30z"/>
+                        </svg>
+                    </span>
+                    <span class="logo-text">BOOKSआलय</span>
+                </div>
+
+
+                <!-- Hamburger Icon -->
+                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+                <!-- Nav Links -->
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#discover">Discover</a></li>
+                    <li><a href="#mood">Mood</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <!-- <li><a href="#goal-discovery">Goal</a></li> -->
+                    <li>
+                    <button id="darkModeToggle" class="dark-toggle" title="Toggle dark mode">🌙</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>BOOKSआलय</h1>
+            <p>The AI-Powered Bookstore That Knows Your Soul</p>
+            <p class="tagline">"Not just a bookstore. An AI companion that knows your soul and gives you the books you never knew you needed."</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- AI Chat Interface -->
+            <section class="ai-chat" id="ai-chat">
+                <div id="chatContainer" class="chat-container hidden">
+                    <section class="ai-chat">
+                        <div class="chat-header">
+                        <div class="ai-avatar">🤖</div>
+                        <h3>Chat with Aria</h3>
+                        </div>
+                        <div id="chat-messages"></div>
+                        <div class="chat-input-container chat-input-wrapper">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Ask me anything...">
+                        <span class="send-icon" onclick="sendMessage()">🚀</span>
+                        <span class="mic-icon" onclick="startVoiceInput()">🎤</span>
+                        </div>
+                    </section>
+                    </div>
+
+            </section>
+            
+            <!-- Book Search Section -->
+            <section id="discover">
+                <h2 style="text-align:center; margin: 2rem 0;">🔎 Search for Any Book</h2>
+                <div style="text-align:center;">
+                    <div class ="search-bar">
+                        <input type="text" id="bookSearch" placeholder="Enter book title or author" class="chat-input" style="max-width:500px;"/>
+                        <div class="search-buttons">
+                            <button class="send-btn" onclick="searchBooks()">Search</button>
+                            <button class="clear-btn" onclick="clearSearch()">Clear</button>
+                        </div>
+                </div>
+                <div class="book-grid" id="searchResults" style="margin-top: 2rem;"></div>
+            </section>
+
+            <!-- Mood-Based Discovery -->
+            <section id="mood">
+                <h2 class="section-heading" style="text-align: center; margin: 2rem 0; font-size: 2.5rem;">🧘‍♂️ Mood-Based Discovery</h2>
+                <p class="section-subtitle">How are you feeling today? Let us find books that match your emotional state.</p>
+                
+                <div class="mood-selector">
+                    <div class="mood-btn" data-mood="lost">😔 I feel lost</div>
+                    <div class="mood-btn" data-mood="happy">😊 I want to laugh</div>
+                    <div class="mood-btn" data-mood="heartbreak">💔 Going through heartbreak</div>
+                    <div class="mood-btn" data-mood="motivated">🔥 Need motivation</div>
+                    <div class="mood-btn" data-mood="calm">🧘 Seeking peace</div>
+                    <div class="mood-btn" data-mood="adventure">🗺️ Craving adventure</div>
+                    <div class="mood-btn" data-mood="romantic">💕 Feeling romantic</div>
+                    <div class="mood-btn" data-mood="thriller">😰 Want thrills</div>
+                </div>
+
+                <div class="book-grid" id="moodBooks">
+                    <!-- Books will be populated based on mood selection -->
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section id="features" class="features-section">
+                <h2 class="section-heading">🛠 Explore SoulBooks Tools</h2>
+                <p class="section-subtitle">Smart tools to help you find the perfect book for every moment.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card" onclick="launchTool('goal')">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Goal-Based Discovery</h3>
+                    <p>Tell us your goal, and we’ll match you with books that move you forward.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="launchTool('quiz')">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Reading Personality Quiz</h3>
+                    <p>Discover what kind of reader you are — and get personalized picks.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="launchTool('visual')">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Visual Book Discovery</h3>
+                    <p>Find your next read just by the vibe — beautiful covers await.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="launchTool('summarizer')">
+                    <div class="feature-icon">📝</div>
+                    <h3>AI Book Summarizer</h3>
+                    <p>Paste a title and get an instant smart summary from Aria.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="launchTool('emotions')">
+                    <div class="feature-icon">💖</div>
+                    <h3>Emotional Intelligence</h3>
+                    <p>Feeling lost or stressed? Let books guide your emotional journey.</p>
+                    </div>
+
+                    <div class="feature-card" onclick="launchTool('aesthetic')">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Aesthetic Matching</h3>
+                    <p>Pick your aesthetic — we’ll match the perfect books to your vibe.</p>
+                    </div>
+                </div>
+                </section>
+
+                <!-- Feature Cards Functionalities --> 
+                 <!-- <section id="goal-discovery" class="goal-section hidden">
+                    <h2 class="section-heading">🎯 Goal-Based Discovery</h2>
+                    <p class="section-subtitle">What’s your current focus? Tell us your goal and we’ll match the perfect reads.</p>
+
+                    <div class="goal-input-wrapper">
+                        <input type="text" id="goalInput" placeholder="e.g. improve focus, learn finance, build confidence" />
+                        <button onclick="findGoalBooks()">Find Books</button>
+                    </div>
+
+                    <div id="goalResults" class="book-grid"></div>
+                    </section> -->
+
+
+            <!-- Analytics Dashboard -->
+            <section class="analytics" id="analytics">
+                <h2>📊 Your Reading Analytics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="booksRead">47</span>
+                        <span class="stat-label">Books Read</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="favoriteGenre">Mystery</span>
+                        <span class="stat-label">Favorite Genre</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="readingStreak">23</span>
+                        <span class="stat-label">Day Streak</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="moodTone">Optimistic</span>
+                        <span class="stat-label">Reading Mood</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
