@@ -15,8 +15,11 @@ Traditional book recommendation systems are limited — they rely only on rating
 💡 BOOKSआलय solves this by offering:
 
 •Mood-based and goal-based discovery.
+
 •Emotionally intelligent book suggestions.
+
 •AI conversations to understand reader context.
+
 •Interactive, visually appealing user experience.
 
 
@@ -34,9 +37,13 @@ Traditional book recommendation systems are limited — they rely only on rating
 **🧠 How It Works**
 
 • User Input: User selects a mood, goal, or interacts with the chatbot.
+
 • AI Analysis: Natural Language Processing (NLP) interprets the query.
+
 • Book Fetching: The app fetches book data via APIs (like TMDB/Google Books API).
+
 • Dynamic Display: Books are shown with covers, titles, authors, and short AI-generated insights.
+
 • Optional Tools: Users can take quizzes or analyze reading behavior through the “Analysis” tab.
 
 **🛠️ Tech Stack**
